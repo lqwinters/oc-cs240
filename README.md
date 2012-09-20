@@ -1,2 +1,2 @@
-oc-cs350
-Database Programming 
+oc-cs240
+Computer Science II
