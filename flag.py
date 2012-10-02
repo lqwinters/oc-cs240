@@ -3,7 +3,7 @@
 ## Class: CS 240
 
 ## Description: Olympic flag is created here and imported into 
-## flag_movement. This is the class/pobject file for the Olymppic 
+## flag_movement. This is the class/object file for the Olymppic 
 ## flag.
 
 import pygame
