@@ -23,6 +23,28 @@ def init():
     # Screen
     return pygame.display.set_mode((width, height))
 
+def draw_flag(screen, left, top, width, height):
+
+    # FLag size
+    Flag_width, Flag_height = 360, 240
+    Flag = pygame.Rect((width - Flag_width)/2, (height - Flag_height)/2, Flag_width, Flag_height)
+
+    # Colors used in the flag
+    snow = pygame.Color('#fffafa')
+    blue = pygame.Color('#0000cd')
+    black = pygame.Color('#000000')
+    red = pygame.Color('#ff0000')
+    yellow = pygame.Color('#ffff00')
+    green = pygame.Color('#008000')
+
+    # Draws Olympic flag
+    pygame.draw.rect(screen, snow, Flag)                            # Draws rectangle of flag
+    pygame.draw.circle(screen, blue, (220,200), 65, 7)              # Draws blue ring
+    pygame.draw.circle(screen, black, (320, 200), 65, 7)            # Draws black ring
+    pygame.draw.circle(screen, red, (420, 200), 65, 7)              # Draws red ring
+    pygame.draw.circle(screen, yellow, (270, 270), 65, 7)           # Draws yellow ring
+    pygame.draw.circle(screen, green, (370, 270), 65, 7)            # Draws green ring
+
 def main(screen):
 
     # FLag size
@@ -30,7 +52,6 @@ def main(screen):
     Flag = pygame.Rect((width - Flag_width)/2, (height - Flag_height)/2, Flag_width, Flag_height)
 
     # Colors used in the flag
-    pale_blue = pygame.Color('#87cefa')
     snow = pygame.Color('#fffafa')
     blue = pygame.Color('#0000cd')
     black = pygame.Color('#000000')
@@ -56,6 +77,7 @@ def main(screen):
     running = True
 
     while running:
+        pale_blue = pygame.Color('#87cefa')       
         # Fills screen with pale blue color
         screen.fill (pale_blue)
           
@@ -68,7 +90,7 @@ def main(screen):
         screen.blit(usa, usa_rect)
         # Allows USA Woman's soccer image to rotate
         usa = pygame.transform.rotate(usa, 90)
-
+     
         # Draws Olympic flag
         pygame.draw.rect(screen, snow, Flag)                            # Draws rectangle of flag
         pygame.draw.circle(screen, blue, (220,200), 65, 7)              # Draws blue ring
@@ -76,7 +98,7 @@ def main(screen):
         pygame.draw.circle(screen, red, (420, 200), 65, 7)              # Draws red ring
         pygame.draw.circle(screen, yellow, (270, 270), 65, 7)           # Draws yellow ring
         pygame.draw.circle(screen, green, (370, 270), 65, 7)            # Draws green ring
-            
+
         # Displays screen in window
         pygame.display.flip()
 
@@ -85,13 +107,13 @@ def main(screen):
         usa_rect.move_ip(horizontal_2, vertical_2)
 
 
-        # Bounds checking
+        # Bounds checking for soccer ball image
         if soccer_rect.right >= width or soccer_rect.left <= 0:
             horizontal_1 *= -1
         if soccer_rect.bottom >= height or soccer_rect.top <= 0:
             vertical_1 *= -1
 
-        # Bounds checking
+        # Bounds checking for USA Woman's soccer image
         if usa_rect.right >= width or usa_rect.left <= 0:
             horizontal_2 *= -1
         if usa_rect.bottom >= height or usa_rect.top <= 0:
