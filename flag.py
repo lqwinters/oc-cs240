@@ -42,33 +42,33 @@ class Flag(object):
         self.right = self.left + self.width
         self.bottom = self.top + self.height
         
-        # Allows flag to move down and then right to left 
+        # Moving right until bound is met then moves up
         if self.right > screen_width: 
             self.left -= 1              # Moves flag one pixel to the left
-            self.horizontal = 0         # Moves flag up
-            self.vertical = -1
+            self.horizontal = 0         # Changes direction from right to up
+            self.vertical = -1          # 
         else:
             self.left += self.horizontal
             
-        # Allows flag to move right        
+        # Moving left until buond is met then moves down       
         if self.left <= 0:
-            self.horizontal = 0
-            self.vertical = 1
+            self.horizontal = 0         # Changes direction from left to down
+            self.vertical = 1           #
         else:
             self.left += self.horizontal
 
-        # Allows flag to move bottom to top and then left to right
+        # Moving down until bound is met then moves right
         if self.bottom > screen_height:
             self.top -= 1                   # Moves flag one pixel down
-            self.vertical = 0               # Moves flag left
-            self.horizontal = 1
+            self.vertical = 0               # Changes direction from left to down
+            self.horizontal = 1             #
         else:
             self.top += self.vertical
 
-        # Allows flag to move left
+        # Moving up until bound is met then moves left
         if self.top <= 0:
-            self.horizontal = -1 
-            self.vertical = 0
+            self.horizontal = -1            # Changes direction from up to left
+            self.vertical = 0               #
         else: 
             self.top += self.vertical
 
