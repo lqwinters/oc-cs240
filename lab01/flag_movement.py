@@ -34,7 +34,7 @@ def draw_flag(screen, left, top, width, height):
     pygame.draw.circle(screen, green, (left + 250, top + 150), 65, 7)         # Draws green ring
 
 def main(screen):
-    horizontal, vertical = 1, 1
+    horizontal, vertical = 0, 1
     fleft, ftop = 0, 0
 
     # FLag size
@@ -76,7 +76,7 @@ def main(screen):
                 running = False    
             if event.type == pygame.KEYDOWN and event.key == pygame.k_z:         
                 fleft, ftop = 0, 0
-
+        
         print fleft, ftop, horizontal, vertical
 
 screen = init()
