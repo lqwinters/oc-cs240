@@ -122,6 +122,91 @@ class NewShip(object):
         self.y_velocity = 0
         self.x_velocity = 0
 
+
+
+class Character(object):
+    def __init__(self):
+        self.character = pygame.image.load('Character Princess Girl.png').convert_alpha()
+        self.x = 350
+        self.y = 170
+        self.bullets = []
+        self.frame = 0
+        self.velocity = 0
+
+
+    def draw(self, screen):
+        screen.blit(self.character, (self.x, self.y))
+        for bullet in self.bullets:
+            pygame.draw.circle(screen, (255, 255, 255), (bullet[0], bullet[1]), 5)
+
+
+    def update(self, screen):
+        if random.randint(1, 60) == 1:
+            self.shoot()
+        if random.randint(1, 100) == 1:
+            self.velocity *= -1
+
+        # Update frame counter
+        self.frame += 1
+
+        
+        # Deletes bullets off screen
+        calls = []
+        width, height = screen.get_size()
+        for index, bullet in enumerate(self.bullets):
+            bullet[0] += bullet[2] 
+            bullet[1] += bullet[3]
+            if bullet[0] < 0 or bullet[1] < 0 or bullet[0] > width or bullet[1] > height:
+                # Remove index later
+                calls.append(index)
+        calls.sort(reverse = True)
+        for call in calls:
+            del self.bullets[call]
+
+
+        # Moves character from left to right while throwing bullets
+        self.x += self.velocity
+        if self.x > screen.get_width() and self.velocity > 0:
+            self.x = -self.character.get_width() + 70   # -101
+        if self.x < -self.character.get_width() and self.velocity < 0:
+            self.x = screen.get_width() - 70
+
+
+    def shoot(self):
+        if len(self.bullets) < 15:
+            head = 70
+            hands = 100
+            foot = 171
+            right = 101
+            middle = 50
+
+
+            # Bullets are thrown starting at the left of the character
+            self.bullets.append([self.x, self.y + hands, -1, 0])
+            self.bullets.append([self.x, self.y + hands, -2, 0])
+            # self.bullets.append([self.x, self.y + hands, -1, -1])
+            # self.bullets.append([self.x, self.y + hands, -2, -2])
+
+
+            # Bullets are thrown starting at the right of the character
+            self.bullets.append([self.x + right, self.y + hands, 1, 0])
+            self.bullets.append([self.x + right, self.y + hands, 2, 0])
+
+            # Bullets are thrown starting at the top of the character
+            self.bullets.append([self.x + middle, self.y + head, 0, -1])
+            self.bullets.append([self.x + middle, self.y + head, 0, -2])
+
+            # Bullets are thrown starting at the bottom of the character
+            self.bullets.append([self.x + middle, self.y + head, 0, 1])
+            self.bullets.append([self.x + middle, self.y + foot, 0, 2])
+ 
+    def move_left(self):
+        self.velocity = 1
+
+    def move_right(self):
+        self.velocity = -1
+
+
 def init():
     width, height = 800, 600
     pygame.init()
@@ -162,22 +247,18 @@ def build_space(screen):
 	draw_space(space, stars)
 	return space
 
-def load_character():
-	character = pygame.image.load('Character Princess Girl.png').convert_alpha()
-	raw_size = character.get_size()
-
-	return character
-
 def main(screen):
     ship = NewShip()
-    character = load_character()
+    character = Character()
     space = build_space(screen)
+    character.move_left()
     running = True
     while running:
         screen.blit(space, (0, 0))          # Redraw background
         ship.draw(screen)
         ship.update()
-        screen.blit(character, (350, 170))
+        character.draw(screen)
+        character.update(screen)
         pygame.display.flip()           # Display screen in window
 
         for event in pygame.event.get():
@@ -196,7 +277,6 @@ def main(screen):
                     ship.move_right()
                 if event.key == pygame.K_SPACE:
                     ship.stop()
-
 
 screen = init()
 main(screen)
