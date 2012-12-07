@@ -184,21 +184,27 @@ class Character(object):
             # Bullets are thrown starting at the left of the character
             self.bullets.append([self.x, self.y + hands, -1, 0])
             self.bullets.append([self.x, self.y + hands, -2, 0])
-            # self.bullets.append([self.x, self.y + hands, -1, -1])
-            # self.bullets.append([self.x, self.y + hands, -2, -2])
+            self.bullets.append([self.x, self.y + hands, -1, -1])
+            self.bullets.append([self.x, self.y + hands, -2, -2])
 
 
             # Bullets are thrown starting at the right of the character
             self.bullets.append([self.x + right, self.y + hands, 1, 0])
             self.bullets.append([self.x + right, self.y + hands, 2, 0])
+            self.bullets.append([self.x + right, self.y + hands, 1, -1])
+            self.bullets.append([self.x + right, self.y + hands, 2, -2])
 
             # Bullets are thrown starting at the top of the character
             self.bullets.append([self.x + middle, self.y + head, 0, -1])
             self.bullets.append([self.x + middle, self.y + head, 0, -2])
+            self.bullets.append([self.x + middle, self.y + head, 1, 1])
+            self.bullets.append([self.x + middle, self.y + head, 2, 2])
 
             # Bullets are thrown starting at the bottom of the character
             self.bullets.append([self.x + middle, self.y + head, 0, 1])
             self.bullets.append([self.x + middle, self.y + foot, 0, 2])
+            self.bullets.append([self.x + middle, self.y + head, -1, 1])
+            self.bullets.append([self.x + middle, self.y + foot, -2, 2])
  
     def move_left(self):
         self.velocity = 1
